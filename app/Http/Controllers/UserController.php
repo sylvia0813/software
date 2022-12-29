@@ -7,12 +7,15 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $users = User::all();
+        $users = $users->groupBy('role');
         return view('user.list', compact('users'));
     }
 
-    public function update(Request $request, $user_id){
+    public function update(Request $request, $user_id)
+    {
         $name = $request->name;
         $sex = $request->sex;
         $age = $request->age;

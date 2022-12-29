@@ -63,7 +63,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-primary w-25">儲存</button>
+                                    <button type="submit" class="btn btn-primary">儲存</button>
                                 </div>
                             </div>
                         </div>

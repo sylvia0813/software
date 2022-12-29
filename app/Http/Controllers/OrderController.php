@@ -68,7 +68,7 @@ class OrderController extends Controller
             'table',
             'meals',
             'meals.meal',
-        ])->get();
+        ])->orderBy('id', 'desc')->get();
 
         return view('order.list', compact('orders'));
     }
@@ -96,7 +96,7 @@ class OrderController extends Controller
         ])->find($order_id);
 
         $order->meals->each(function ($meal) {
-            $meal->status = 'cancelled';
+            $meal->status = 'canceled';
             $meal->save();
         });
 

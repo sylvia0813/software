@@ -6,6 +6,7 @@
         'processing' => '處理中',
         'finish' => '已完成',
         'arrived' => '已送達',
+        'canceled' => '已取消',
     ];
 @endphp
 
@@ -68,10 +69,10 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <h5 class="text-secondary">總金額：{{ $total_price }}</h5>
                                 <form action="{{ route('order.checkout', ['order_id' => $order->id]) }}" method="post">
                                     @csrf
                                     <button type="submit" class="btn btn-primary float-end">結帳</button>
+                                    <h5 class="d-inline text-danger">總金額：{{ $total_price }}</h5>
                                 </form>
                             </div>
                         </div>

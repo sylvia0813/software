@@ -58,7 +58,7 @@
                                         @foreach ($order->meals as $meal)
                                             <tr>
                                                 @if ($loop->first)
-                                                    <td rowspan="{{ count($order->meals) }}">{{ $order->id }}</td>
+                                                    <td rowspan="{{ count($order->meals) }}"># {{ $order->id }}</td>
                                                     <td rowspan="{{ count($order->meals) }}">{{ $order->table->name }}</td>
                                                 @endif
                                                 <td>{{ $meal->meal->name }}</td>
