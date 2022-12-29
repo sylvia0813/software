@@ -73,4 +73,19 @@ class OrderController extends Controller
 
         return view('order.list', compact('orders'));
     }
+
+    public function detail($order_id)
+    {
+        $order = Order::with([
+            'table',
+            'meals',
+            'meals.meal',
+        ])->find($order_id);
+
+        $total_price = $order->meals->sum(function ($order_meal) {
+            return $order_meal->meal->price * $order_meal->count;
+        });
+
+        return view('order.detail', compact('order', 'total_price'));
+    }
 }

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('meal_id')->constrained();
             $table->integer('count')->comment('數量');
             $table->string('remark')->nullable()->comment('備註');
-            $table->enum('status', ['pending', 'processing', 'finish'])->default('pending')->comment('狀態[待處理,處理中,已完成]');
+            $table->enum('status', ['pending', 'processing', 'finish', 'arrived'])->default('pending')->comment('狀態[待處理,處理中,已完成,已送達]');
             $table->timestamps();
         });
     }

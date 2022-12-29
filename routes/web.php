@@ -35,15 +35,18 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/new', [OrderController::class, 'new'])->name('new');
         });
 
-        // Route::get('/{order_id}/detail', [OrderController::class, 'detail'])->name('detail');
+        Route::get('/{order_id}/detail', [OrderController::class, 'detail'])->name('detail');
 
         // 訂單列表
         Route::get('/list', [OrderController::class, 'list'])->name('list');
 
         // 訂單餐點狀態
         Route::prefix('/order_meal/{order_meal_id}')->name('meal.')->group(function () {
+            // 廚師
             Route::post('/processing', [OrderMealController::class, 'processing'])->name('processing');
             Route::post('/finish', [OrderMealController::class, 'finish'])->name('finish');
+            // 服務生
+            Route::post('/arrived', [OrderMealController::class, 'arrived'])->name('arrived');
         });
     });
 

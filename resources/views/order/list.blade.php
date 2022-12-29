@@ -5,6 +5,7 @@
         'pending' => '待處理',
         'processing' => '處理中',
         'finish' => '已完成',
+        'arrived' => '已送達',
     ];
 
     $step = [
@@ -18,14 +19,15 @@
     ];
 @endphp
 
-@section('content')
-
+@push('styles')
     <style>
         .table-xd-hover tbody:hover {
             background-color: rgba(0, 0, 0, 0.075);
         }
     </style>
+@endpush
 
+@section('content')
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -40,7 +42,7 @@
                             <table class="table table-borderless align-middle light-border table-xd-hover">
                                 <thead>
                                     <tr class="text-secondary">
-                                        <th width="5%">編號</th>
+                                        <th width="10%">訂單編號</th>
                                         <th width="10%">桌名</th>
                                         <th width="10%">餐點</th>
                                         <th width="10%">數量</th>

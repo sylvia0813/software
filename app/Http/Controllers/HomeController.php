@@ -9,7 +9,10 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $tables = Table::all();
+        $tables = Table::with([
+            'order',
+        ])->get();
+
         return view('home', compact('tables'));
     }
 }

@@ -43,6 +43,9 @@
                             </div>
                             <div>
                                 <a href="{{ route('order.index', ['table_id' => $table->id]) }}" class="btn btn-primary">入桌</a>
+                                @if ($table->status == 'occupied' && !is_null($table->order))
+                                    <a href="{{ route('order.detail', ['order_id' => $table->order->id]) }}" class="btn btn-primary">明細</a>
+                                @endif
                             </div>
                         </div>
                     </div>
