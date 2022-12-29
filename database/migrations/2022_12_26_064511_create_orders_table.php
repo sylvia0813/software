@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('table_id')->constrained();
             $table->string('remark')->nullable()->comment('備註');
+            $table->enum('status', ['pending', 'processing', 'completed', 'canceled'])->default('pending')->comment('狀態');
             $table->timestamps();
         });
     }

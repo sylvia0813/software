@@ -38,7 +38,7 @@
                             <a class="nav-link" href="{{ route('meal.list') }}">庫存狀態</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">銷售狀態</a>
+                            <a class="nav-link" href="{{ route('dashboard.index') }}">銷售狀態</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.list') }}">員工檔案</a>

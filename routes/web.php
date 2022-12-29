@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MealController;
 use App\Http\Controllers\OrderMealController;
+use App\Http\Controllers\OrderReservedController;
 use App\Http\Controllers\DashboardController;
 
 /*
@@ -27,15 +28,28 @@ Route::middleware(['auth'])->group(function () {
     // 首頁
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-    // 點餐
+    // 訂單
     Route::prefix('/order')->name('order.')->group(function () {
         // 入桌
         Route::prefix('/table/{table_id}')->group(function () {
+            // 點餐
             Route::get('/index', [OrderController::class, 'index'])->name('index');
             Route::post('/new', [OrderController::class, 'new'])->name('new');
         });
 
-        Route::get('/{order_id}/detail', [OrderController::class, 'detail'])->name('detail');
+        // 訂位
+        Route::prefix('/reserved/{table_id}')->name('reserved.')->group(function () {
+            Route::get('/', [OrderReservedController::class, 'index'])->name('index');
+            Route::get('/cancel', [OrderReservedController::class, 'cancel'])->name('cancel');
+        });
+
+        // 訂單
+        Route::prefix('/{order_id}')->group(function () {
+            // 訂單明細
+            Route::get('/detail', [OrderController::class, 'detail'])->name('detail');
+            // 結帳
+            Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
+        });
 
         // 訂單列表
         Route::get('/list', [OrderController::class, 'list'])->name('list');

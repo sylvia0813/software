@@ -50,15 +50,14 @@ class OrderController extends Controller
         $table->save();
 
         // 新增餐點訂單
-        $order_meals = [];
         foreach ($meals as $meal) {
-            $order_meals[] = [
-                'order_id' => $order->id,
-                'meal_id' => $meal['meal_id'],
-                'count' => $meal['count'],
-            ];
+            $orderMeal = new OrderMeal();
+            $orderMeal->order_id = $order->id;
+            $orderMeal->meal_id = $meal['meal_id'];
+            $orderMeal->count = $meal['count'];
+            $orderMeal->save();
+            Meal::find($meal['meal_id'])->decrement('stock', $meal['count']);
         }
-        OrderMeal::insert($order_meals);
 
         return redirect()->route('home')->with('success', '訂單已送出');
     }
@@ -87,5 +86,26 @@ class OrderController extends Controller
         });
 
         return view('order.detail', compact('order', 'total_price'));
+    }
+
+    public function checkout($order_id)
+    {
+        $order = Order::with([
+            'table',
+            'meals',
+        ])->find($order_id);
+
+        $order->meals->each(function ($meal) {
+            $meal->status = 'cancelled';
+            $meal->save();
+        });
+
+        $order->table->status = 'available';
+        $order->table->save();
+
+        $order->status = 'completed';
+        $order->save();
+
+        return redirect()->route('home')->with('success', '結帳成功');
     }
 }

@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Meal extends Model
 {
     use HasFactory;
+
+    public function salesCountToday()
+    {
+        return $this->hasMany(OrderMeal::class)->whereDate('created_at', date('Y-m-d'))->sum('count');
+    }
 }

@@ -10,6 +10,7 @@ class MealController extends Controller
     public function list()
     {
         $meals = Meal::all();
+
         return view('meal.list', compact('meals'));
     }
 

@@ -47,7 +47,7 @@
                                 <tbody>
                                     @foreach ($order->meals as $index => $meal)
                                         <tr>
-                                            <td>{{ $index + 1 }}.</td>
+                                            <td class="text-center">{{ $index + 1 }}.</td>
                                             <td>{{ $meal->meal->name }}</td>
                                             <td>{{ $meal->meal->price }}$</td>
                                             <td>{{ $meal->count }}</td>
@@ -68,7 +68,11 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <h3 class="text-secondary">總金額：{{ $total_price }}</h3>
+                                <h5 class="text-secondary">總金額：{{ $total_price }}</h5>
+                                <form action="{{ route('order.checkout', ['order_id' => $order->id]) }}" method="post">
+                                    @csrf
+                                    <button type="submit" class="btn btn-primary float-end">結帳</button>
+                                </form>
                             </div>
                         </div>
                     </div>

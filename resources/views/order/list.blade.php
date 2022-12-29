@@ -6,6 +6,7 @@
         'processing' => '處理中',
         'finish' => '已完成',
         'arrived' => '已送達',
+        'canceled' => '已廢棄',
     ];
 
     $step = [
@@ -65,7 +66,7 @@
                                                 <td>{{ $meal->remake }}</td>
                                                 <td>{{ $status[$meal->status] }}</td>
                                                 <td>
-                                                    @if ($meal->status != 'finish')
+                                                    @if ($meal->status == 'pending' || $meal->status == 'processing')
                                                         <form action="{{ route('order.meal.' . $step[$meal->status], ['order_meal_id' => $meal->id]) }}" method="post">
                                                             @csrf
                                                             <button type="submit" class="btn btn-primary">{{ $step2[$meal->status] }}</button>

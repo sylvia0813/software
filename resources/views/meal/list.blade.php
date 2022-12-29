@@ -24,6 +24,7 @@
                                     </div>
                                     <input type="number" class="form-control" name="stock" id="stock_{{ $index }}" placeholder="請選擇數量" min="0" value="{{ $meal->stock }}">
                                 </div>
+                                <small class="text-danger text-end">今日已銷售：{{ $meal->salesCountToday() }} 份</small>
                                 <div class="row mt-3">
                                     <div class="col-md-12 text-center">
                                         <button type="submit" class="btn btn-primary">儲存</button>
