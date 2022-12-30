@@ -31,18 +31,28 @@
                         {{-- <li class="nav-item">
                             <a class="nav-link" href="{{ route('table.status') }}">桌面狀態</a>
                         </li> --}}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('order.list') }}">訂單列表</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('meal.list') }}">庫存狀態</a>
-                        </li>
+                        @can('order_status_page')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('order.list') }}">訂單列表</a>
+                            </li>
+                        @endcan
+
+                        @can('storage_page')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('meal.list') }}">庫存狀態</a>
+                            </li>
+                        @endcan
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('dashboard.index') }}">銷售分析</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('user.list') }}">員工檔案</a>
-                        </li>
+
+                        @can('worker_profile_page')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('user.list') }}">員工檔案</a>
+                            </li>
+                        @endcan
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('waiter.status') }}">服務生狀態</a>
                         </li>
