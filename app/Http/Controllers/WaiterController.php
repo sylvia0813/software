@@ -9,7 +9,10 @@ class WaiterController extends Controller
 {
     public function index()
     {
-        $waiters = User::where('role', 'waiter')->get();
+        $waiters = User::with([
+            'orders',
+            'orders.table',
+        ])->where('role', 'waiter')->get();
 
         return view('waiter.status', compact('waiters'));
     }

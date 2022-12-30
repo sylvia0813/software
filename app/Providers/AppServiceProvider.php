@@ -50,12 +50,14 @@ class AppServiceProvider extends ServiceProvider
 
         // 員工檔案
         Gate::define('worker_profile_page', function (User $user) {
-            return in_array($user->role, ['server', 'manager']);
+            // return in_array($user->role, ['server', 'manager']);
+            return true;
         });
 
         // 庫存狀態
         Gate::define('storage_page', function (User $user) {
-            return in_array($user->role, ['manager']);
+            // return in_array($user->role, ['manager']);
+            return true;
         });
     }
 }

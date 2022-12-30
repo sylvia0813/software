@@ -49,6 +49,7 @@ class OrderController extends Controller
         // 儲存訂單
         $order = new Order();
         $order->table_id = $table->id;
+        $order->status = 'processing';
         $order->save();
 
         // 變更桌號狀態
@@ -66,7 +67,41 @@ class OrderController extends Controller
             Meal::find($meal['meal_id'])->decrement('stock', $meal['count']);
         }
 
+        // 自動指派一名服務員
+        $waiter = $this->getRandomAssignWaiter();
+
+        $orderWaiter = new OrderWaiter();
+        $orderWaiter->order_id = $order->id;
+        $orderWaiter->user_id = $waiter->id;
+        $orderWaiter->save();
+
         return redirect()->route('home')->with('success', '訂單已送出');
+    }
+
+    // 隨機指派一名服務員，優先指派空閒中的服務員
+    private function getRandomAssignWaiter()
+    {
+        // 列出所有服務員與當前服務訂單
+        $waiters = User::with([
+            'orders' => function ($query) {
+                return $query->isProcessing();
+            }
+        ])->where('role', 'waiter')->get();
+
+        // 對服務員排序，依服務中的訂單數量排序
+        $waiters = $waiters->sortBy(function ($item) {
+            return $item->orders->count();
+        });
+
+        // 對排序過的服務員進行分組，依服務中的訂單數量分組
+        $waiters = $waiters->groupBy(function ($item) {
+            return $item->orders->count();
+        });
+
+        // 第一組為空閒中或當前服務訂單最少的服務員，對其進行隨機選擇一名作為本次訂單的服務員
+        $waiter = $waiters->first()->random();
+
+        return $waiter;
     }
 
     public function list()

@@ -18,4 +18,9 @@ class Order extends Model
     {
         return $this->hasMany(OrderMeal::class);
     }
+
+    public function scopeIsProcessing($query)
+    {
+        return $query->where('status', 'processing');
+    }
 }

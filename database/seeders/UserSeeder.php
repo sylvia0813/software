@@ -48,5 +48,6 @@ class UserSeeder extends Seeder
                 'role' => 'manager',
             ],
         ]);
+        User::factory()->count(10)->create();
     }
 }

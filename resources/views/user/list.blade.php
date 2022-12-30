@@ -24,8 +24,6 @@
         </div>
         <div class="row mt-5">
             <div class="col-md-12">
-
-
                 @foreach ($roles as $key => $value)
                     <div class="row">
                         <h5 class="alert alert-primary">{{ $value }}</h5>
@@ -37,7 +35,7 @@
                                         <div class="card-body px-4 text-center">
                                             <h4>#{{ $user->id }}</h4>
                                             <div class="row my-2">
-                                                <div class="col-12">
+                                                <div class="col-md-12">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text" id="name">性名</span>
@@ -47,7 +45,7 @@
                                                 </div>
                                             </div>
                                             <div class="row my-2">
-                                                <div class="col-12">
+                                                <div class="col-md-12">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">性別</span>
@@ -62,7 +60,7 @@
                                                 </div>
                                             </div>
                                             <div class="row my-2">
-                                                <div class="col-12">
+                                                <div class="col-md-12">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">年紀</span>
@@ -72,7 +70,7 @@
                                                 </div>
                                             </div>
                                             <div class="row my-2">
-                                                <div class="col-12">
+                                                <div class="col-md-12">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">職位</span>
