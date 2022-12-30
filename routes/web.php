@@ -47,7 +47,13 @@ Route::middleware(['auth'])->group(function () {
         });
 
         // 訂單
-        Route::prefix('/{order_id}')->controller(OrderController::class)->group(function () {
+        Route::prefix('/{order_id}')->group(function () {
+            Route::get('/waiters', 'waiters')->name('waiters');
+            // 服務生
+            Route::prefix('/waiter/{waiter_id}')->name('waiter.')->group(function () {
+                Route::post('/assign', 'assignWaiter')->name('assign');
+                Route::post('/unassign', 'unassignWaiter')->name('unassign');
+            });
             // 訂單明細
             Route::get('/detail', 'detail')->name('detail');
             // 結帳
@@ -87,7 +93,12 @@ Route::middleware(['auth'])->group(function () {
     // 桌面
     Route::prefix('/table')->name('table.')->controller(TableController::class)->group(function () {
         Route::get('/status', 'index')->name('status');
-        Route::post('/{table_id}/update', 'update')->name('update');
+
+        // 桌面狀態
+        Route::prefix('/{table_id}')->group(function () {
+            Route::post('/update', 'update')->name('update');
+            Route::get('/clean', 'clean')->name('clean');
+        });
     });
 
     // 服務生

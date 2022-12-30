@@ -44,7 +44,7 @@
                                 <thead>
                                     <tr class="text-secondary">
                                         <th width="10%">訂單編號</th>
-                                        <th width="10%">桌名</th>
+                                        <th width="10%">桌號</th>
                                         <th width="10%">餐點</th>
                                         <th width="10%">數量</th>
                                         <th width="10%">備註</th>
@@ -63,7 +63,7 @@
                                                 @endif
                                                 <td>{{ $meal->meal->name }}</td>
                                                 <td>{{ $meal->count }}</td>
-                                                <td>{{ $meal->remake }}</td>
+                                                <td>{{ $meal->remark }}</td>
                                                 <td>{{ $status[$meal->status] }}</td>
                                                 <td>
                                                     @if ($meal->status == 'pending' || $meal->status == 'processing')

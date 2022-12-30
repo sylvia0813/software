@@ -30,6 +30,9 @@
                                         <div>
                                             <small class="float-end text-danger">剩餘: {{ $meal->stock }} 份</small>
                                         </div>
+                                        <div>
+                                            <textarea class="form-control" name="remark[{{ $index }}]" id="remark_{{ $index }}" cols="30" rows="3" placeholder="餐點備註"></textarea>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

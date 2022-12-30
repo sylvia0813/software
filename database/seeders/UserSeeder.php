@@ -43,9 +43,9 @@ class UserSeeder extends Seeder
             ],
             [
                 'name' => '經理',
-                'account' => 'handyman',
+                'account' => 'manager',
                 'password' => Hash::make('1234'),
-                'role' => 'handyman',
+                'role' => 'manager',
             ],
         ]);
     }

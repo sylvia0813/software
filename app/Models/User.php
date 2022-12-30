@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    protected $fillable = [
-        'account',
-        'password',
-    ];
+    use HasFactory;
+
+    public function hasOrder($order_id)
+    {
+        return $this->hasOneThrough(Order::class, OrderWaiter::class, 'user_id', 'id', 'id', 'order_id')->where('order_id', $order_id)->exists();
+    }
 }

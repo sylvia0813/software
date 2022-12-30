@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name')->comment('姓名');
-            $table->enum('sex', ['male', 'female', 'unknown'])->nullable()->comment('性別[男, 女, 未知]');
+            $table->enum('sex', ['male', 'female'])->nullable()->comment('性別[男, 女, 未知]');
             $table->integer('age')->nullable()->comment('年齡');
             $table->string('account')->comment('帳號或員編');
             $table->string('password')->comment('密碼');

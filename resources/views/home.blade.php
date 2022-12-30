@@ -41,7 +41,7 @@
                                     <div class="alert alert-{{ $colors[$table->status] }}">{{ $status[$table->status] }}</div>
                                 </div>
                             </div>
-                            <div>
+                            <div class="d-flex flex-col justify-content-around">
                                 @if ($table->status == 'available' || $table->status == 'reserved')
                                     <a href="{{ route('order.index', ['table_id' => $table->id]) }}" class="btn btn-primary">入桌</a>
                                 @endif
@@ -50,6 +50,7 @@
                                 @endif
                                 @if ($table->status == 'occupied' && !is_null($table->order))
                                     <a href="{{ route('order.detail', ['order_id' => $table->order->id]) }}" class="btn btn-primary">明細</a>
+                                    <a href="{{ route('order.waiters', ['order_id' => $table->order->id]) }}" class="btn btn-success">服務人員</a>
                                 @endif
                                 @if ($table->status == 'available')
                                     <a href="{{ route('order.reserved.index', ['table_id' => $table->id]) }}" class="btn btn-warning text-light">預約</a>
