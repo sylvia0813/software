@@ -1,0 +1,28 @@
+nav.navbar {
+    box-shadow: inset 0px -1px 0px #eee;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background-color: #f5f6fa;
+}
+
+.main {
+    min-height: calc(100% - 200px);
+}
+
+table {
+    &.light-border {
+        tr {
+            border-bottom: 1px solid #eee;
+        }
+    }
+}
+
+#notifyDropdown::after {
+    content: none;
+}
