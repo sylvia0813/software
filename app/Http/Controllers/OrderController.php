@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewMessageNotification;
 use Illuminate\Http\Request;
 use App\Models\Meal;
+use App\Models\Message;
 use App\Models\Table;
 use App\Models\User;
 use App\Models\Order;
@@ -135,6 +137,7 @@ class OrderController extends Controller
         $order = Order::with([
             'table',
             'meals',
+            'waiters',
         ])->find($order_id);
 
         $order->meals->each(function ($meal) {
@@ -147,6 +150,16 @@ class OrderController extends Controller
 
         $order->status = 'completed';
         $order->save();
+
+        $waiters = $order->waiters;
+        foreach ($waiters as $waiter) {
+            $message = new Message();
+            $message->to = $waiter->id;
+            $message->message = sprintf('%s 可清理', $order->table->name);
+            $message->save();
+
+            event(new NewMessageNotification($message));
+        }
 
         return redirect()->route('home')->with('success', '結帳成功');
     }
@@ -192,6 +205,7 @@ class OrderController extends Controller
         $order = Order::with([
             'table',
             'meals',
+            'waiters',
         ])->find($order_id);
 
         $order->meals->each(function ($meal) {
@@ -204,6 +218,16 @@ class OrderController extends Controller
 
         $order->status = 'canceled';
         $order->save();
+
+        $waiters = $order->waiters;
+        foreach ($waiters as $waiter) {
+            $message = new Message();
+            $message->to = $waiter->id;
+            $message->message = sprintf('%s 可清理', $order->table->name);
+            $message->save();
+
+            event(new NewMessageNotification($message));
+        }
 
         return redirect()->route('home')->with('success', '訂單已刪除');
     }

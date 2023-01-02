@@ -23,4 +23,9 @@ class Order extends Model
     {
         return $query->where('status', 'processing');
     }
+
+    public function waiters()
+    {
+        return $this->hasManyThrough(User::class, OrderWaiter::class, 'order_id', 'id', 'id', 'user_id');
+    }
 }

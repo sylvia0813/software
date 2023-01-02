@@ -13,20 +13,27 @@
     {{-- js --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js" integrity="sha512-rpLlll167T5LJHwp0waJCh3ZRf7pO6IT1+LZOhAyP6phAirwchClbTZV3iqL3BMrVxIYRbzGTpli4rfxsCK6Vw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     {{-- css --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     @stack('styles')
 
     <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
     <script>
-        // Enable pusher logging - don't include this in production
-        Pusher.logToConsole = true;
+        Pusher.logToConsole = false;
 
         var pusher = new Pusher("{{ env('PUSHER_APP_KEY') }}", {
             cluster: 'ap3'
         });
+
+        var channel = pusher.subscribe("user.{{ auth()->id() }}");
+        channel.bind("new-message-event", function(data) {
+            alert(data.message.message);
+        });
     </script>
+
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
@@ -83,6 +90,24 @@
                         @endif
                     @endrole
                 @endauth
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="notifyDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-regular fa-bell"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notifyDropdown">
+                            @forelse ([] as $notify)
+                                <li>
+                                    <a href="#" class="dropdown-item">暫無通知</a>
+                                </li>
+                            @empty
+                                <li>
+                                    <a href="#" class="dropdown-item">暫無通知</a>
+                                </li>
+                            @endforelse
+                        </ul>
+                    </li>
+                </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     @auth
                         <li class="nav-item dropdown">

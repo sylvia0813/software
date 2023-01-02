@@ -2,14 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewMessageNotification;
 use Illuminate\Http\Request;
 use App\Models\OrderMeal;
 
 use App\Models\Meal;
+use App\Models\Message;
 use App\Models\Order;
 
 class OrderMealController extends Controller
 {
+    public function index($order_id)
+    {
+        $meals = Meal::all();
+        return view('order.append.index', compact('order_id', 'meals'));
+    }
+
     public function processing($order_id, $meal_id)
     {
         $order_meal = OrderMeal::find($meal_id);
@@ -21,9 +29,26 @@ class OrderMealController extends Controller
 
     public function finish($order_id, $meal_id)
     {
-        $order_meal = OrderMeal::find($meal_id);
+        $order_meal = OrderMeal::with([
+            'meal',
+            'order',
+            'order.table',
+            'order.waiters',
+        ])->find($meal_id);
+
         $order_meal->status = 'finish';
         $order_meal->save();
+
+        // 通知服務生
+        $waiters = $order_meal->order->waiters;
+        foreach ($waiters as $waiter) {
+            $message = new Message();
+            $message->to = $waiter->id;
+            $message->message = sprintf('%s 餐點 %s 可送餐', $order_meal->order->table->name, $order_meal->meal->name);
+            $message->save();
+
+            event(new NewMessageNotification($message));
+        }
 
         return redirect()->back()->with('success', '餐點狀態已更新');
     }
@@ -35,12 +60,6 @@ class OrderMealController extends Controller
         $order_meal->save();
 
         return redirect()->back()->with('success', '餐點狀態已更新');
-    }
-
-    public function index($order_id)
-    {
-        $meals = Meal::all();
-        return view('order.append.index', compact('order_id', 'meals'));
     }
 
     public function append(Request $request, $order_id)

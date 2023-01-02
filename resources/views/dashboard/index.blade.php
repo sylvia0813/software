@@ -35,6 +35,10 @@
                                 <small>* 本日銷售總數：{{ $salesTotalCountToday }} 份</small>
                                 <br>
                                 <small>* 本日銷售總額：{{ $salesTotalPiceToday }} 元</small>
+                                <br>
+                                <small>* 平均周轉時間：</small>
+                                <br>
+                                <small>* 平均準備時間：</small>
                             </div>
                         </div>
                     </div>

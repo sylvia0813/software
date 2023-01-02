@@ -22,17 +22,13 @@ class MessageController extends Controller
         return $data;
     }
 
-    public function send()
+    public static function send($user_id, $message)
     {
-        // message is being sent
         $message = new Message();
-        $message->setAttribute('to', 1);
-        $message->setAttribute('message', 'Demo message user 1');
+        $message->to = $user_id;
+        $message->message = $message;
         $message->save();
 
-        // want to broadcast NewMessageNotification event
         event(new NewMessageNotification($message));
-
-        // ...
     }
 }

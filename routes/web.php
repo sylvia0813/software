@@ -30,8 +30,8 @@ Route::redirect('/', '/home', 301);
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('message/index', [MessageController::class, 'index']);
-    Route::get('message/send', [MessageController::class, 'send']);
+    // Route::get('message/index', [MessageController::class, 'index']);
+    // Route::get('message/send', [MessageController::class, 'send']);
 
 
     // 首頁
