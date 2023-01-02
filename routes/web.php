@@ -11,6 +11,7 @@ use App\Http\Controllers\OrderMealController;
 use App\Http\Controllers\OrderReservedController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\WaiterController;
+use App\Http\Controllers\MessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,11 @@ include 'auth.php';
 Route::redirect('/', '/home', 301);
 
 Route::middleware(['auth'])->group(function () {
+
+    Route::get('message/index', [MessageController::class, 'index']);
+    Route::get('message/send', [MessageController::class, 'send']);
+
+
     // 首頁
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 

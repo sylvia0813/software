@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>軟體工程期末專題</title>
 
     {{-- js --}}
@@ -15,6 +17,21 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
     @stack('styles')
+
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+    <script>
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('e27215ce7313ee1b3dc1', {
+            cluster: 'ap3'
+        });
+
+        var channel = pusher.subscribe('user.1');
+        channel.bind('new-message-event', function(data) {
+            alert(JSON.stringify(data));
+        });
+    </script>
 </head>
 
 <body>
