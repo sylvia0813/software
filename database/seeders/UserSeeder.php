@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
         User::insert([
             [
                 'name' => '測試帳號',
-                'account' => 'test',
+                'account' => 'admin',
                 'password' => Hash::make('1234'),
                 'role' => 'admin',
             ],
