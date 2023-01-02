@@ -12,7 +12,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
     {{-- css --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
     @stack('styles')
@@ -31,33 +30,47 @@
                         {{-- <li class="nav-item">
                             <a class="nav-link" href="{{ route('table.status') }}">桌面狀態</a>
                         </li> --}}
-                        @can('order_status_page')
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('order.list') }}">訂單列表</a>
-                            </li>
-                        @endcan
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('order.list') }}">訂單列表</a>
+                        </li>
 
-                        @can('storage_page')
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('meal.list') }}">庫存狀態</a>
-                            </li>
-                        @endcan
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('meal.list') }}">庫存狀態</a>
+                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('dashboard.index') }}">銷售分析</a>
                         </li>
 
-                        @can('worker_profile_page')
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user.list') }}">員工檔案</a>
-                            </li>
-                        @endcan
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.list') }}">員工檔案</a>
+                        </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('waiter.status') }}">服務生狀態</a>
+                            <a class="nav-link" href="{{ route('waiter.status') }}">服務生</a>
                         </li>
                     @endauth
                 </ul>
+                @auth
+                    @role('waiter')
+                        @php
+                            $assignedOrders = auth()
+                                ->user()
+                                ->assignedOrders();
+                        @endphp
+                        @if (count($assignedOrders) > 0)
+                            <div class="me-5">
+                                負責桌面：
+                                @foreach (auth()->user()->assignedOrders() as $order)
+                                    <a href="{{ route('order.detail', ['order_id' => $order->id]) }}" class="text-decoration-none">{{ $order->table->name }}</a>
+                                    @if (!$loop->last)
+                                        、
+                                    @endif
+                                @endforeach
+                            </div>
+                        @endif
+                    @endrole
+                @endauth
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     @auth
                         <li class="nav-item dropdown">

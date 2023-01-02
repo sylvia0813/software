@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Meal;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
@@ -22,6 +23,8 @@ class DashboardController extends Controller
             return $item->salesPriceToday();
         })->sum();
 
-        return view('dashboard.index', compact('date', 'meals', 'salesTotalCountToday', 'salesTotalPiceToday'));
+        $waiters = User::where('role', 'waiter')->get();
+
+        return view('dashboard.index', compact('date', 'meals', 'salesTotalCountToday', 'salesTotalPiceToday', 'waiters'));
     }
 }

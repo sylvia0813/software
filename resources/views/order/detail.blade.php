@@ -29,20 +29,27 @@
                     <div class="card-body p-4">
                         <div class="row">
                             <div class="col-md-12">
-                                <h3 class="text-secondary">訂單編號：{{ $order->id }}</h3>
+                                <div class="d-flex flex-col justify-content-between">
+                                    <div>
+                                        <h3 class="text-secondary">訂單編號：{{ $order->id }}</h3>
+                                    </div>
+                                    <div>
+                                        <a href="{{ route('order.meal.index', ['order_id' => $order->id]) }}" class="btn btn-primary">新增餐點</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
                             <table class="table table-borderless align-middle light-border table-xd-hover">
                                 <thead>
                                     <tr class="text-secondary">
-                                        <th width="10%"></th>
-                                        <th width="10%">餐點</th>
-                                        <th width="10%">單價</th>
+                                        <th width="15%"></th>
+                                        <th width="15%">餐點</th>
+                                        <th width="15%">單價</th>
                                         <th width="10%">數量</th>
-                                        <th width="10%">備註</th>
+                                        <th width="15%">備註</th>
                                         <th width="10%">狀態</th>
-                                        <th width="10%"></th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -56,11 +63,17 @@
                                             <td>{{ $status[$meal->status] }}</td>
                                             <td>
                                                 @if ($meal->status == 'finish')
-                                                    <form action="{{ route('order.meal.arrived', ['order_meal_id' => $meal->id]) }}" method="post">
+                                                    <form action="{{ route('order.meal.arrived', ['order_id' => $order->id, 'meal_id' => $meal->id]) }}" method="post">
                                                         @csrf
                                                         <button type="submit" class="btn btn-primary">已送達</button>
                                                     </form>
                                                 @endif
+                                            </td>
+                                            <td>
+                                                <form action="{{ route('order.meal.remove', ['order_id' => $order->id, 'meal_id' => $meal->id]) }}" method="post">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-danger">刪除</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -78,6 +91,10 @@
                         </div>
                     </div>
                 </div>
+                <form class="mt-2" action="{{ route('order.delete', ['order_id' => $order->id]) }}" method="post">
+                    @csrf
+                    <button type="submit" class="btn btn-danger">刪除訂單</button>
+                </form>
             </div>
         </div>
     </div>

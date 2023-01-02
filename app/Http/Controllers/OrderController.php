@@ -186,4 +186,25 @@ class OrderController extends Controller
 
         return redirect()->route('order.waiters', $order_id)->with('success', '服務員已取消指派');
     }
+
+    public function delete($order_id)
+    {
+        $order = Order::with([
+            'table',
+            'meals',
+        ])->find($order_id);
+
+        $order->meals->each(function ($meal) {
+            $meal->status = 'canceled';
+            $meal->save();
+        });
+
+        $order->table->status = 'uncleaned';
+        $order->table->save();
+
+        $order->status = 'canceled';
+        $order->save();
+
+        return redirect()->route('home')->with('success', '訂單已刪除');
+    }
 }

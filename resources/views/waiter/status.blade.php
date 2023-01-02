@@ -31,7 +31,7 @@
                                         </div>
                                         <select class="form-select" name="order" id="order" size="5">
                                             @foreach ($user->orders as $order)
-                                                <option value="{{ $order->id }}">{{ $order->table->name }}</option>
+                                                <option value="{{ $order->id }}" ondblclick="location.href='{{ route('order.detail', ['order_id' => $order->id]) }}'">{{ $order->table->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>

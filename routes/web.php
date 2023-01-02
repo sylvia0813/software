@@ -48,29 +48,43 @@ Route::middleware(['auth'])->group(function () {
 
         // 訂單
         Route::prefix('/{order_id}')->group(function () {
+
             Route::get('/waiters', 'waiters')->name('waiters');
+
             // 服務生
             Route::prefix('/waiter/{waiter_id}')->name('waiter.')->group(function () {
                 Route::post('/assign', 'assignWaiter')->name('assign');
                 Route::post('/unassign', 'unassignWaiter')->name('unassign');
             });
+
+            // 訂單餐點
+            Route::prefix('/meal')->name('meal.')->controller(OrderMealController::class)->group(function () {
+                // 新增
+                Route::get('/index', 'index')->name('index');
+                Route::post('/append', 'append')->name('append');
+
+                // 訂單餐點狀態
+                Route::prefix('{meal_id}')->group(function () {
+                    // 刪除
+                    Route::post('/remove', 'remove')->name('remove');
+                    // 廚師
+                    Route::post('/processing', 'processing')->name('processing');
+                    Route::post('/finish', 'finish')->name('finish');
+                    // 服務生
+                    Route::post('/arrived', 'arrived')->name('arrived');
+                });
+            });
             // 訂單明細
             Route::get('/detail', 'detail')->name('detail');
             // 結帳
             Route::post('/checkout', 'checkout')->name('checkout');
+
+            // 刪除
+            Route::post('/delete', 'delete')->name('delete');
         });
 
         // 訂單列表
         Route::get('/list', [OrderController::class, 'list'])->name('list');
-
-        // 訂單餐點狀態
-        Route::prefix('/order_meal/{order_meal_id}')->name('meal.')->controller(OrderMealController::class)->group(function () {
-            // 廚師
-            Route::post('/processing', 'processing')->name('processing');
-            Route::post('/finish', 'finish')->name('finish');
-            // 服務生
-            Route::post('/arrived', 'arrived')->name('arrived');
-        });
     });
 
     // 庫存

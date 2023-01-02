@@ -67,7 +67,7 @@
                                                 <td>{{ $status[$meal->status] }}</td>
                                                 <td>
                                                     @if ($meal->status == 'pending' || $meal->status == 'processing')
-                                                        <form action="{{ route('order.meal.' . $step[$meal->status], ['order_meal_id' => $meal->id]) }}" method="post">
+                                                        <form action="{{ route('order.meal.' . $step[$meal->status], ['order_id' => $order->id, 'meal_id' => $meal->id]) }}" method="post">
                                                             @csrf
                                                             <button type="submit" class="btn btn-primary">{{ $step2[$meal->status] }}</button>
                                                         </form>
