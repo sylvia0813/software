@@ -1,21 +1,5 @@
 @extends('layouts.main')
 
-@php
-    $status = [
-        'occupied' => '使用中',
-        'available' => '可使用',
-        'uncleaned' => '需清潔',
-        'reserved' => '已預定',
-    ];
-
-    $colors = [
-        'occupied' => 'danger',
-        'available' => 'success',
-        'uncleaned' => 'warning',
-        'reserved' => 'primary',
-    ];
-@endphp
-
 @section('content')
     <div class="container">
         <div class="row">
@@ -39,11 +23,6 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="alert alert-{{ $colors[$table->status] }}">{{ $status[$table->status] }}</div>
-                                    </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-12">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
@@ -53,16 +32,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row my-3">
-                                    <div class="col-md-12">
-                                        <select name="status" id="status" class="form-select" required>
-                                            @foreach ($status as $key => $value)
-                                                <option value="{{ $key }}" @selected($table->status == $key)>{{ $value }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-center">
+                                <div class="mt-3 d-flex justify-content-center">
                                     <button type="submit" class="btn btn-primary">儲存</button>
                                 </div>
                             </div>

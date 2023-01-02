@@ -16,10 +16,8 @@ class TableController extends Controller
     public function update(Request $request, $table_id)
     {
         $capacity = $request->capacity;
-        $status = $request->status;
         $table = Table::find($table_id);
         $table->capacity = $capacity;
-        $table->status = $status;
         $table->save();
 
         return redirect()->back()->with('success', '桌面狀態更新成功');

@@ -27,13 +27,12 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     @auth
-                        {{-- <li class="nav-item">
-                            <a class="nav-link" href="{{ route('table.status') }}">桌面狀態</a>
-                        </li> --}}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('order.list') }}">訂單列表</a>
                         </li>
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('table.status') }}">桌面狀態</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('meal.list') }}">庫存狀態</a>
                         </li>
