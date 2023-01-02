@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    {{-- <meta name="user-id" content="{{ Auth::id() }}"> --}}
 
     <title>軟體工程期末專題</title>
 
@@ -14,7 +15,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
     {{-- css --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
     @stack('styles')
 
@@ -23,15 +23,11 @@
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
 
-        var pusher = new Pusher('e27215ce7313ee1b3dc1', {
+        var pusher = new Pusher("{{ env('PUSHER_APP_KEY') }}", {
             cluster: 'ap3'
         });
-
-        var channel = pusher.subscribe('user.1');
-        channel.bind('new-message-event', function(data) {
-            alert(JSON.stringify(data));
-        });
     </script>
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
 <body>
