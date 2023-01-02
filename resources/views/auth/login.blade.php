@@ -17,6 +17,7 @@
                                     {{-- <input type="text" class="form-control" id="account" name="account" value="" placeholder="學號或員編" required> --}}
                                     <select name="account" id="account" class="form-select" required>
                                         <option value="" hidden>請選擇角色</option>
+                                        <option value="admin">測試所有權限</option>
                                         <option value="server">領檯人員</option>
                                         <option value="waiter">服務生</option>
                                         <option value="chef">廚師</option>

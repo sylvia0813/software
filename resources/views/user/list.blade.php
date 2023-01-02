@@ -83,9 +83,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-primary">儲存</button>
-                                            </div>
+                                            @role('manager')
+                                                <div class="d-flex justify-content-center">
+                                                    <button type="submit" class="btn btn-primary">儲存</button>
+                                                </div>
+                                            @endrole
                                         </div>
                                     </div>
                                 </form>

@@ -47,24 +47,31 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     @auth
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('order.list') }}">訂單列表</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('table.status') }}">桌面狀態</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('meal.list') }}">庫存狀態</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('dashboard.index') }}">銷售分析</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('user.list') }}">員工檔案</a>
-                        </li>
-
+                        @role('server', 'waiter', 'chef', 'handyman', 'manager')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('order.list') }}">訂單列表</a>
+                            </li>
+                        @endrole
+                        @role('server', 'waiter', 'chef', 'handyman', 'manager')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('table.status') }}">桌面狀態</a>
+                            </li>
+                        @endrole
+                        @role('manager')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('meal.list') }}">庫存狀態</a>
+                            </li>
+                        @endrole
+                        @role('manager')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('dashboard.index') }}">銷售分析</a>
+                            </li>
+                        @endrole
+                        @role('server', 'manager')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('user.list') }}">員工檔案</a>
+                            </li>
+                        @endrole
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('waiter.status') }}">服務生</a>
                         </li>

@@ -32,9 +32,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mt-3 d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-primary">儲存</button>
-                                </div>
+                                @role('server')
+                                    <div class="mt-3 d-flex justify-content-center">
+                                        <button type="submit" class="btn btn-primary">儲存</button>
+                                    </div>
+                                @endrole
                             </div>
                         </div>
                     </form>

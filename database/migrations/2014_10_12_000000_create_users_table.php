@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('age')->nullable()->comment('年齡');
             $table->string('account')->comment('帳號或員編');
             $table->string('password')->comment('密碼');
-            $table->enum('role', ['server', 'waiter', 'chef', 'handyman', 'manager'])->comment('職位[領檯人員,服務生,廚師,雜工,經理]');
+            $table->enum('role', ['server', 'waiter', 'chef', 'handyman', 'manager', 'admin'])->comment('職位[領檯人員,服務生,廚師,雜工,經理]');
             $table->string('remember_token')->nullable();
             $table->timestamps();
         });

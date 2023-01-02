@@ -18,6 +18,12 @@ class UserSeeder extends Seeder
     {
         User::insert([
             [
+                'name' => '測試帳號',
+                'account' => 'test',
+                'password' => Hash::make('1234'),
+                'role' => 'admin',
+            ],
+            [
                 'name' => '領檯人員',
                 'account' => 'server',
                 'password' => Hash::make('1234'),
