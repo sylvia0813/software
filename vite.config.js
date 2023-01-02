@@ -33,12 +33,10 @@ function detectServerConfig(hosts) {
 
         if (!fs.existsSync(keyPath)) {
             continue;
-            return {};
         }
 
         if (!fs.existsSync(certificatePath)) {
             continue;
-            return {};
         }
 
         return {
